@@ -16,7 +16,7 @@ pip3 install --extra-index-url https://testpypi.python.org/pypi prototxt-parser
 
 To run, from python:
 ```python
-input_string = ... # the prototxt string to be parsed
+input_string = ... # the prototxt string to be parsed e.g., open("some_prototxt_file").read()
 from prototxt_parser.prototxt import parse
 parsed_dict = parse(input_string)
 ```
