@@ -1,5 +1,3 @@
-import sys
-
 from parsy import generate, regex, string
 
 
