@@ -73,3 +73,71 @@ exp = (object_pair | message).many().sep_by(comma).map(tuples_to_dict)
 
 def parse(inp):
     return exp.parse(inp)
+
+
+def serialize(input_dict, pretty=False):
+    if not input_dict:
+        return None
+    col = ':'
+
+    sb = []
+    for key, value in input_dict.items():
+        sb.append(key)
+        sb.append(col)
+        sb.append(prototxt_block(key, value, pretty=pretty))
+        if pretty:
+            _append_tabs(sb)
+    return ''.join(sb)
+
+
+def prototxt_block(key, ob, tabs=0, pretty=False):
+    if ob is None:
+        return "null"
+    if type(ob) in [str, int, float, bool]:
+        return "\"" + str(ob) + "\""
+    if type(ob) is list:
+        col = ':'
+        com = ','
+        first = True
+
+        sbuilder = []
+        for val in ob:
+            if not first:
+                sbuilder.append(com)
+            if pretty:
+                _append_tabs(sbuilder, tabs)
+            sbuilder.append(key)
+            sbuilder.append(col)
+            sbuilder.append(prototxt_block(key, val, tabs + 1, pretty))
+            first = False
+        return ''.join(sbuilder)
+    if type(ob) is dict:
+        lbr = '{'
+        rbr = '}'
+        col = ':'
+        com = ','
+        space = ' '
+        first = True
+
+        sbuilder = [space, lbr]
+        for key, val in ob.items():
+            if not first:
+                sbuilder.append(com)
+            if type(val) is not list:
+                if pretty:
+                    _append_tabs(sbuilder, tabs)
+                sbuilder.append(key)
+                sbuilder.append(col)
+            sbuilder.append(prototxt_block(key, val, tabs + 1, pretty))
+            first = False
+        if pretty:
+            _append_tabs(sbuilder, tabs - 1)
+        sbuilder.append(rbr)
+        return ''.join(sbuilder)
+    raise Exception("Unhandled type: " + type(ob))
+
+
+def _append_tabs(builder, tabs=0):
+    builder.append('\n')
+    for x in range(tabs):
+        builder.append('\t')
