@@ -59,12 +59,10 @@ def object_pair():
 @generate
 def message():
     key = yield identifier
-    col = yield optional_colon
-    res = None
-    if col is not None:
-        yield lbrace
-        res = yield exp
-        yield rbrace
+    yield optional_colon
+    yield lbrace
+    res = yield exp
+    yield rbrace
     return key, res
 
 
