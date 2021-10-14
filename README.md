@@ -13,7 +13,7 @@ $ python3 prototxt_parser_main.py prototxt_file
 Alternatively can use pip as well to get the package:
 
 ```commandline
-pip3 install --extra-index-url https://testpypi.python.org/pypi prototxt-parser
+pip3 install prototxt-parser
 ```
 
 To run, from python:

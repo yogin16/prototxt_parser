@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setup(
     name="prototxt_parser",
-    version="0.1.6",
+    version="1.0",
     packages=find_packages(),
 
     # Project uses reStructuredText, so ensure that the docutils get
