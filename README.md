@@ -12,13 +12,20 @@ Use pip to get the package:
 pip3 install prototxt-parser
 ```
 
-To run, from python:
+To run, from python, for converting prototxt to python dict:
 
 ```python
 input_string = ... # the prototxt string to be parsed e.g., open("some_prototxt_file").read()
 
 from prototxt_parser.prototxt import parse
 parsed_dict = parse(input_string)
+```
+
+To generate prototxt, from python dict:
+
+```python
+from prototxt_parser.prototxt import serialize
+text = serialize(dict, pretty=True)
 ```
 
 Alternatively, from command line from this repo:
